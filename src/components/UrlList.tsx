@@ -9,10 +9,14 @@ import {
   CircularProgress,
   Alert,
   Pagination,
+  Button,
+  AlertTitle,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { useGetUrlsQuery, useDeleteUrlMutation } from '../services/api';
 
 function UrlList() {
@@ -53,10 +57,58 @@ function UrlList() {
 
   if (error) {
     return (
-      <Paper sx={{ p: 3 }}>
-        <Alert severity="error">
-          Failed to load URLs. Please check if the server is running.
-        </Alert>
+      <Paper sx={{ p: 4 }}>
+        <Stack spacing={3} alignItems="center">
+          <ErrorOutlineIcon sx={{ fontSize: 64, color: 'error.main' }} />
+          
+          <Box sx={{ textAlign: 'center' }}>
+            <AlertTitle sx={{ fontSize: '1.25rem', fontWeight: 600, mb: 1 }}>
+              Unable to Connect to Server
+            </AlertTitle>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+              The URL shortener backend server is not responding.
+            </Typography>
+          </Box>
+
+          <Alert severity="error" sx={{ width: '100%' }}>
+            <AlertTitle>Connection Error</AlertTitle>
+            Failed to load URLs. Please check if the server is running.
+          </Alert>
+
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              <strong>To fix this issue:</strong>
+            </Typography>
+            <Stack spacing={1} alignItems="flex-start" sx={{ textAlign: 'left' }}>
+              <Typography variant="body2" color="text.secondary">
+                1. Open a terminal and navigate to the server directory
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                2. Run: <code style={{ 
+                  backgroundColor: 'rgba(0,0,0,0.05)', 
+                  padding: '2px 6px', 
+                  borderRadius: '4px',
+                  fontFamily: 'monospace'
+                }}>cd server && npm run dev</code>
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                3. Ensure MongoDB is running on your system
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                4. Check that the API URL is correct in your .env file
+              </Typography>
+            </Stack>
+          </Box>
+
+          <Button
+            variant="contained"
+            startIcon={<RefreshIcon />}
+            onClick={() => window.location.reload()}
+            size="large"
+          >
+            Retry Connection
+          </Button>
+        </Stack>
       </Paper>
     );
   }
