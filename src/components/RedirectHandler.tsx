@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Paper, Typography, Button, Stack, Box, CircularProgress } from '@mui/material';
+import { Container, Paper, Typography, Button, Box, CircularProgress } from '@mui/material';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 function RedirectHandler() {

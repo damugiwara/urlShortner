@@ -58,7 +58,7 @@ export const urlApi = createApi({
     
     getUrlByCode: builder.query<UrlMapping, string>({
       query: (shortCode) => `/urls/${shortCode}`,
-      providesTags: (result, error, shortCode) => [{ type: 'Url', id: shortCode }],
+      providesTags: (_result, _error, shortCode) => [{ type: 'Url', id: shortCode }],
     }),
     
     deleteUrl: builder.mutation<{ message: string }, string>({
